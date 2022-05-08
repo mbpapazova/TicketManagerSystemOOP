@@ -43,5 +43,9 @@ public:
     }
 
     ~Performance() { delete[] name; }
+	
+    const char* getName() const { return name; }
+
+    int getDate() const { return date; }
     
 };
