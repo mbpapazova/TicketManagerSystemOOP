@@ -1,5 +1,5 @@
 #include <iostream>
-#include "CashRegister.cpp"
+#include "TicketManager.cpp"
 
 int main() {
 
