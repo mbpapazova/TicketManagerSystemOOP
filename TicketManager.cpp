@@ -30,16 +30,20 @@ public:
 		copy(other);
 	}
 
-	TicketManager& operator=(const TicketManager& other) {
+    TicketManager& operator=(const TicketManager& other) {
 		if (this != &other) {
 			delete[] performances;
 			copy(other);
 		}
 		return *this;
 	}
-	~TicketManager() { delete[] performances; }
+     ~TicketManager() { delete[] performances; }
+	
+     int getCapacity() const { return capacity; }
+	
+     int getSize() const { return size; }
 
-    bool isHallDateEmpty(int date, Hall hallNum){
+     bool isHallDateEmpty(int date, Hall hallNum){
         for(int i = 0; i < size; i++){
            if(performances[i].date == date && performances[i].hall == hallNum){
                return false;
@@ -49,7 +53,7 @@ public:
         return true;
     }
 
-    void addNewEvent(int date, char* name, Hall hallNum){
+     void addNewEvent(int date, char* name, Hall hallNum){
         if(isHallDateEmpty(date, hallNum)){
             performances[size] = new Performance(name, date, hallNum);
             size++;
