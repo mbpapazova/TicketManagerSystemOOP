@@ -16,6 +16,8 @@ public:
     int getNumberOfLines() const { return numberOfLines; } 
     int getNumberOfSeats() const { return numberOfSeats; } 
 
-    //operator==
+   friend bool operator==(const Hall& l, const Hall& r) {
+        return l.getNumberOfHall() == r.getNumberOfHall();
+    }
 
 };
