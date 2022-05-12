@@ -1,7 +1,7 @@
 #include <iostream>
+#include <cstring>
 #include "Performance.cpp"
-
-const int MAX_SIZE = 100;
+using namespace std;
 
 class TicketManager {
 private:
@@ -13,6 +13,7 @@ private:
     void copy(const TicketManager& other) {
 		capacity = other.capacity;
 		size = other.size;
+
 		performances = new Performance[other.capacity];
 		for (unsigned i = 0; i < size; i++) {
 			performances[i] = other.performances[i];
@@ -30,43 +31,70 @@ public:
 		copy(other);
 	}
 
-    TicketManager& operator=(const TicketManager& other) {
+	TicketManager& operator=(const TicketManager& other) {
 		if (this != &other) {
 			delete[] performances;
 			copy(other);
 		}
 		return *this;
 	}
-     ~TicketManager() { delete[] performances; }
-	
-     int getCapacity() const { return capacity; }
-	
-     int getSize() const { return size; }
 
-     bool isHallDateEmpty(int date, Hall hallNum){
-        for(int i = 0; i < size; i++){
-           if(performances[i].date == date && performances[i].hall == hallNum){
+	~TicketManager() { delete[] performances; }
+
+    int getCapacity() const { return capacity; }
+
+	int getSize() const { return size; }
+
+    bool isHallDateEmpty(int date, Hall hallNum){
+        for(unsigned i = 0; i < size; i++){
+           if(performances[i].getDate() == date && performances[i].getHall().getNumberOfHall() == hallNum.getNumberOfHall()){
                return false;
            }
         }
 
         return true;
     }
-
-     void addNewEvent(int date, char* name, Hall hallNum){
+//ново събитие
+    void addNewEvent(char* name, int date, Hall hallNum){
         if(isHallDateEmpty(date, hallNum)){
-            performances[size] = new Performance(name, date, hallNum);
-            size++;
+           performances[size] = Performance(name, date, hallNum);
+           size++;
         }
         else {
             std::cerr<< "Event already exists!" << std::endl;
         }
     }
 
-    void printAll() const{
-        for(int i = 0; i < size; i++){
-            std::cout<< performances[i].name << " " << performances[i].hall << " " << performances[i].date << std::endl; 
+//свободни места
+    void freeSeats(char* name, int date){
+
+        for(unsigned i = 0; i < size; i++){
+            if(strcmp(performances[i].getName(), name) == 0 && performances[i].getDate() == date){
+                cout << "FOUND: " << performances[i].getName() << endl;
+                cout << "-------------------------" << endl;
+                performances[i].getHall().printFreeSeats();
+                cout << "-------------------------" << endl;
+            }
+        }
+        
+    }
+
+//резервация на билет
+
+
+//отмяна на резервация
+
+//закупуване на билет
+
+//списък с резервации
+
+//справка за закупени билети
+
+     void printAll() const{
+        for(unsigned i = 0; i < size; i++){
+            std::cout << performances[i].getName() << " " << performances[i].getHall().getNumberOfHall() << " " << performances[i].getDate() << std::endl; 
         }
     }
 
 };
+
