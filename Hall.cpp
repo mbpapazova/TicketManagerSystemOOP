@@ -65,20 +65,7 @@ public:
         }
     }
 
-
-   void getFreeSeats() {
-        std::cout<< "Free seats: " << std::endl;
-
-        for(int i=0; i < numberOfRows; i++){
-            for(int j=0; j < numberOfSeats; j++) {
-                if(this->seats[i][j] == 0) {
-                   std::cout << "SEAT AT ROW: " << i << ", NUM: " << j << " is free" << std::endl; 
-                }
-            }
-        }
-    }
-
-   void printFreeSeats() {
+    void printFreeSeats() {
        for (int i = 0; i < numberOfRows; i++) {
            for (int j = 0; j < numberOfSeats; j++) {
                if (this->seats[i][j] == 0) {
@@ -90,7 +77,7 @@ public:
            }
            std::cout << std::endl;
        }
-   }
+    }
 
     friend bool operator==(const Hall& l, const Hall& r) {
         return l.getNumberOfHall() == r.getNumberOfHall();
