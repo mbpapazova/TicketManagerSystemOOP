@@ -1,18 +1,16 @@
 #include <iostream>
+#include <cstring>
 #include "Hall.cpp"
 
 class Performance {
 private:
-
     char* name;
     Hall hall;
     int date;
 
-      void copy(const Performance& other) {
-		this->name = new char[other.name];
-		for (unsigned i = 0; i < size; i++) {
-			name[i] = name[i];
-		}
+    void copy(const Performance& other) {
+		this->name = new char[strlen(other.name) + 1];
+        strcpy_s(this->name, strlen(other.name) + 1, other.name);
 
         this->hall = other.hall;
         this->date = other.date;
@@ -20,14 +18,20 @@ private:
 
 public:
 
-    Performance(const char* name, Hall hall, int date){
+   Performance(){
+       this->date = 0;
+       this->name = nullptr;
+       this->hall = Hall();
+   }
+
+   Performance(const char* name, int date, Hall hall) {
         this->name = new char[strlen(name) + 1];
-        strcpy(this->name, name);
+        strcpy_s(this->name, strlen(name) + 1, name);
 
         this->hall = hall;
-        
         this->date = date;
     }
+
 
     Performance(const Performance& other){
         copy(other);
@@ -43,9 +47,11 @@ public:
     }
 
     ~Performance() { delete[] name; }
-	
+
     const char* getName() const { return name; }
 
     int getDate() const { return date; }
+   
+    Hall getHall() const { return hall; }
     
 };
