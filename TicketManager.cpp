@@ -31,7 +31,7 @@ public:
 		copy(other);
 	}
 
-	TicketManager& operator=(const TicketManager& other) {
+    TicketManager& operator=(const TicketManager& other) {
 		if (this != &other) {
 			delete[] performances;
 			copy(other);
@@ -39,13 +39,13 @@ public:
 		return *this;
 	}
 
-	~TicketManager() { delete[] performances; }
+     ~TicketManager() { delete[] performances; }
 
-    int getCapacity() const { return capacity; }
+     int getCapacity() const { return capacity; }
 
-	int getSize() const { return size; }
+     int getSize() const { return size; }
 
-    bool isHallDateEmpty(int date, Hall hallNum){
+     bool isHallDateEmpty(int date, Hall hallNum){
         for(unsigned i = 0; i < size; i++){
            if(performances[i].getDate() == date && performances[i].getHall().getNumberOfHall() == hallNum.getNumberOfHall()){
                return false;
@@ -55,7 +55,7 @@ public:
         return true;
     }
 //ново събитие
-    void addNewEvent(char* name, int date, Hall hallNum){
+     void addNewEvent(char* name, int date, Hall hallNum){
         if(isHallDateEmpty(date, hallNum)){
            performances[size] = Performance(name, date, hallNum);
            size++;
@@ -66,7 +66,7 @@ public:
     }
 
 //свободни места
-    void freeSeats(char* name, int date){
+     void freeSeats(char* name, int date){
 
         for(unsigned i = 0; i < size; i++){
             if(strcmp(performances[i].getName(), name) == 0 && performances[i].getDate() == date){
@@ -90,7 +90,7 @@ public:
 
 //справка за закупени билети
 
-     void printAll() const{
+      void printAll() const{
         for(unsigned i = 0; i < size; i++){
             std::cout << performances[i].getName() << " " << performances[i].getHall().getNumberOfHall() << " " << performances[i].getDate() << std::endl; 
         }
